@@ -15,8 +15,8 @@ public class RegistrationDto {
     @NotEmpty(message = "Last name cannot be null or empty")
     private String lastName;
 
-    @NotEmpty(message = "Council Code cannot be null or empty")
-    private String councilCode;
+    @NotEmpty(message = "Username cannot be null or empty")
+    private String username;
 
     @NotEmpty(message = "Email cannot be null or empty")
     @Email(message = "Email address should be a valid value")
