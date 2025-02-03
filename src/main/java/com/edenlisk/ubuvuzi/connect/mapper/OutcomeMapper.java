@@ -8,7 +8,7 @@ public class OutcomeMapper {
     public static OutcomeDto mapToOutcomeDto(Outcome outcome, OutcomeDto outcomeDto) {
         outcomeDto.setDescription(outcome.getDescription());
         outcomeDto.setName(outcome.getName());
-        outcomeDto.setId(outcomeDto.getId());
+        outcomeDto.setId(outcome.getId());
         return outcomeDto;
     }
 

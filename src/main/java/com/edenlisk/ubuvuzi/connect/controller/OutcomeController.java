@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/outcome", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/outcomes", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 public class OutcomeController {
 
     private IOutcomeService outcomeService;
 
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<OutcomeDto>> getAllOutcomes() {
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -22,11 +22,6 @@ public class CounterReferralDto implements Serializable {
     private String recommendations;
 
 
-//    @NotEmpty(message = "Please provide health care provider")
-//    private String healthCareProvider;
-//
-//    @NotEmpty(message = "Please provide health care provider qualification")
-//    private String qualification;
 
     private ApplicationUserDto healthCareProvider;
 

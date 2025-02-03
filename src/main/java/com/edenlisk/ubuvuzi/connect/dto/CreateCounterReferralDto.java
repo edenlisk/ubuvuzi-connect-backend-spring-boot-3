@@ -12,7 +12,10 @@ import java.time.LocalTime;
 public class CreateCounterReferralDto {
 
     @NotEmpty(message = "Health care provider should be provided")
-    private Long userId;
+    private Long healthcareProvider;
+
+    @NotEmpty(message = "Contact person should be provided")
+    private Long contactPerson;
 
     @NotEmpty(message = "Please provide the recommendations or follow-up care")
     private String recommendations;
