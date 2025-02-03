@@ -41,6 +41,7 @@ public class Transfer extends BaseEntity {
     @Column(name = "caregiver_phone_number")
     private String caregiverPhoneNumber;
 
+    // TODO : WHAT IS THIS SERVICE ABOUT
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
@@ -53,8 +54,8 @@ public class Transfer extends BaseEntity {
 
     // Referring facility (hospital issuing the transfer)
     @ManyToOne
-    @JoinColumn(name = "referring_facility_id", nullable = false)
-    private Hospital referringFacility;
+    @JoinColumn(name = "referral_facility_id", nullable = false)
+    private Hospital referralFacility;
 
     // Receiving facility (hospital receiving the patient)
     @ManyToOne
@@ -65,7 +66,7 @@ public class Transfer extends BaseEntity {
     // Employee at the receiving facility
     @ManyToOne
     @JoinColumn(name = "contacted_person_id", nullable = false)
-    private Employee employee;
+    private ApplicationUser contactedPerson;
 
     private LocalTime callingTime;
 
@@ -91,16 +92,16 @@ public class Transfer extends BaseEntity {
     private Float temperature;
 
     // DESCRIPTIVE NAME
-    private String spo2;
+    private Float spo2;
 
     // DESCRIPTIVE NAME
-    private String rr;
+    private Float rr;
 
     // DESCRIPTION
-    private String pulse;
+    private Float pulse;
 
     // DESCRIPTIVE NAME
-    private String bp;
+    private Float bp;
 
     private Float weight;
 
@@ -128,9 +129,13 @@ public class Transfer extends BaseEntity {
 
     private String otherHealthInsurance;
 
-    private String healthCareProvider;
+//    private String healthCareProvider;
 
-    private String qualification;
+//    private String qualification;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private ApplicationUser healthCareProvider;
 
     @Column(name = "transfer_date")
     private LocalDate date;
@@ -138,7 +143,7 @@ public class Transfer extends BaseEntity {
     @Column(name = "transfer_time")
     private LocalTime time;
 
-    private String phoneNumber;
+//    private String phoneNumber;
 
     @OneToOne(mappedBy = "transfer", cascade = CascadeType.ALL)
     private ReferralFeedback referralFeedback;

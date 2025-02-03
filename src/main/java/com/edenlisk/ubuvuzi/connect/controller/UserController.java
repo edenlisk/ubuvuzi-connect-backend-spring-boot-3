@@ -57,9 +57,9 @@ public class UserController {
 //        );
         Set<Role> roles = new HashSet<>();
         roles.add(adminRole);
-        ApplicationUser admin = new ApplicationUser(2, "admin", passwordEncode.encode("password"), roles);
+//        ApplicationUser admin = new ApplicationUser(2, "admin", passwordEncode.encode("password"), roles);
 //        ApplicationUser user = new ApplicationUser(2, "edenlisk", passwordEncode.encode("password"), roles);
-        userRepository.save(admin);
+//        userRepository.save(admin);
 //        userRepository.save(user);
         return "User access level";
     }

@@ -1,5 +1,8 @@
 package com.edenlisk.ubuvuzi.connect.service;
 
+import com.edenlisk.ubuvuzi.connect.dto.ApplicationUserDto;
+import com.edenlisk.ubuvuzi.connect.dto.LoginDto;
+import com.edenlisk.ubuvuzi.connect.dto.RegistrationDto;
 import com.edenlisk.ubuvuzi.connect.entity.ApplicationUser;
 import com.edenlisk.ubuvuzi.connect.dto.LoginResponseDTO;
 import com.edenlisk.ubuvuzi.connect.entity.Permission;
@@ -20,56 +23,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Transactional
-@AllArgsConstructor
 @Service
-public class AuthenticationService {
+public interface AuthenticationService {
 
-    private UserRepository userRepository;
 
-    private RoleRepository roleRepository;
+    /**
+     * @param registrationDto
+     * @return ApplicationUserDto
+     */
+    ApplicationUserDto register(RegistrationDto registrationDto);
 
-    private PasswordEncoder passwordEncoder;
 
-    private AuthenticationManager authenticationManager;
-
-    private TokenService tokenService;
-
-    private PermissionRepository permissionRepository;
-
-    public ApplicationUser registerUser(String username, String password){
-
-        String encodedPassword = passwordEncoder.encode(password);
-//        Role userRole = roleRepository.findByName("USER").get();
-        Role adminRole = new Role();
-        adminRole.setName("ADMIN");
-        Set<Role> authorities = new HashSet<>();
-        Set<Permission> permissions = new HashSet<>(permissionRepository.findAll());
-        adminRole.setPermissions(permissions);
-        var saved = roleRepository.save(adminRole);
-        authorities.add(saved);
-        var user = new ApplicationUser();
-        user.setUsername(username);
-        user.setPassword(encodedPassword);
-        user.setAuthorities(authorities);
-
-        return userRepository.save(user);
-    }
-
-    public LoginResponseDTO loginUser(String username, String password){
-
-        try{
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
-            );
-
-            String token = tokenService.generateJwt(auth);;
-
-            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
-
-        } catch(AuthenticationException e){
-            return new LoginResponseDTO(null, "");
-        }
-    }
+    /**
+     * @param loginDto
+     * @return LoginResponseDto
+     */
+    LoginResponseDTO login(LoginDto loginDto);
 
 }
 

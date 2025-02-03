@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -38,6 +38,6 @@ public class Employee {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "healthcareProvider", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HospitalEmployee> hospitalAssignments;
 }

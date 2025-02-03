@@ -3,24 +3,17 @@ package com.edenlisk.ubuvuzi.connect.dto;
 import com.edenlisk.ubuvuzi.connect.constants.Gender;
 import com.edenlisk.ubuvuzi.connect.constants.Transportation;
 import com.edenlisk.ubuvuzi.connect.constants.TypeOfTransfer;
-import com.edenlisk.ubuvuzi.connect.entity.Hospital;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-/**
- * DTO for {@link com.edenlisk.ubuvuzi.connect.entity.Transfer}
- */
-@Data
-public class TransferDto implements Serializable {
-
-    private Long id;
+@Data @AllArgsConstructor @NoArgsConstructor
+public class CreateTransferDto {
 
     @NotEmpty(message = "Patient name should be provided")
     private String clientName;
@@ -45,14 +38,14 @@ public class TransferDto implements Serializable {
     @NotEmpty(message = "Please provide date of transfer decision")
     private LocalDate dateOfTransferDecision;
 
-    @NotEmpty(message = "Please select the receiving hospital")
-    private HospitalDto receivingFacility;
-
     @NotEmpty(message = "Please select the referral hospital")
-    private HospitalDto referralFacility;
+    private Long referralFacilityId;
+
+    @NotEmpty(message = "Please select the receiving hospital")
+    private Long receivingFacilityId;
 
     @NotEmpty(message = "Please provide health care provider transferring patient")
-    private ApplicationUserDto contactedPerson;
+    private Long contactedPerson;
 
     @NotEmpty(message = "Please provide calling time")
     private LocalTime callingTime;
@@ -100,14 +93,17 @@ public class TransferDto implements Serializable {
     @NotEmpty(message = "Please select type of transportation used")
     private Transportation typeOfTransport;
 
+
     private String otherTransportation;
 
-    private HealthInsuranceDto healthInsurance;
+    @NotEmpty(message = "Please select health insurance")
+    private Long healthInsuranceId;
+
 
     private String otherHealthInsurance;
 
     @NotEmpty(message = "Please provider health care provider transferring patient")
-    private ApplicationUserDto healthCareProvider;
+    private Long healthCareProviderId;
 
     @NotEmpty(message = "Please provide date of transfer")
     private LocalDate date;
@@ -115,8 +111,7 @@ public class TransferDto implements Serializable {
     @NotEmpty(message = "Please provide time of transfer")
     private LocalTime time;
 
-    private LocalDateTime createdAt;
-    private String createdBy;
-    private LocalDateTime updatedAt;
-    private String updatedBy;
+
+//    private String phoneNumber;
+    
 }

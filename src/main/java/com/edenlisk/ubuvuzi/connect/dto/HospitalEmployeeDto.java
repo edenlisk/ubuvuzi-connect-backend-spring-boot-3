@@ -25,9 +25,9 @@ public class HospitalEmployeeDto implements Serializable {
 
     private LocalDate endDate;
 
-    private String shiftType;
+//    private String shiftType;
 
     private List<DepartmentDto> departments;
 
-    private List<SubDepartmentDto> subDepartments;
+//    private List<SubDepartmentDto> subDepartments;
 }

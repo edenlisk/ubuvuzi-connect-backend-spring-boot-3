@@ -21,10 +21,19 @@ public class CounterReferral extends BaseEntity {
     @Column(nullable = false)
     private String recommendations;
 
+//    @Column(name = "health_care_provider")
+//    private String healthCareProvider;
 
-    private String healthCareProvider;
 
-    private String qualification;
+//    private String qualification;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private Hospital hospital;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private ApplicationUser healthCareProvider;
 
     @Column(name = "counter_referral_date")
     private LocalDate date;

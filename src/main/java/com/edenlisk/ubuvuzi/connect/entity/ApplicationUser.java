@@ -19,14 +19,22 @@ public class ApplicationUser implements UserDetails{
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer userId;
+    private Long userId;
 
+	private String firstName;
+
+	private String lastName;
+
+	private String phoneNumber;
 
 	@Column(unique=true)
     private String username;
 
     private String password;
 
+	private String qualification;
+
+	private String userRole;
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
@@ -36,37 +44,6 @@ public class ApplicationUser implements UserDetails{
     )
     private Set<Role> authorities;
 
-//    public ApplicationUser() {
-//		super();
-//		authorities = new HashSet<>();
-//	}
-	
-
-//	public ApplicationUser(Integer userId, String username, String password, Set<Role> authorities) {
-//		super();
-//		this.userId = userId;
-//		this.username = username;
-//		this.password = password;
-//		this.authorities = authorities;
-//	}
-
-//    public Integer getUserId() {
-//		return this.userId;
-//	}
-//
-//	public void setId(Integer userId) {
-//		this.userId = userId;
-//	}
-//
-//	public void setAuthorities(Set<Role> authorities) {
-//		this.authorities = authorities;
-//	}
-
-//	@Override
-//	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		// TODO Auto-generated method stub
-//		return this.authorities;
-//	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -98,10 +75,7 @@ public class ApplicationUser implements UserDetails{
 		// TODO Auto-generated method stub
 		return this.username;
 	}
-	
-//	public void setUsername(String username) {
-//		this.username = username;
-//	}
+
 	
 	/* If you want account locking capabilities create variables and ways to set them for the methods below */
 	@Override
