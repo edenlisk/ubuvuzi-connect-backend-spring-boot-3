@@ -14,6 +14,8 @@ public class DepartmentMapper {
                 .map(subDepartment -> SubDepartmentsMapper.mapToSubDepartmentDto(new SubDepartmentDto(), subDepartment))
                 .toList()
         );
+        departmentDto.setId(department.getId());
+
         // TODO 2: CREATE SUB DEPARTMENTS MAPPER
         return departmentDto;
     }

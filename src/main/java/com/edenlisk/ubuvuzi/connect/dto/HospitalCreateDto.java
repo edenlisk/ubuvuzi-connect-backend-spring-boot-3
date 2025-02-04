@@ -19,5 +19,4 @@ public class HospitalCreateDto implements Serializable {
     @NotNull(message = "Address should be defined")
     private AddressDto address;
 
-
 }
