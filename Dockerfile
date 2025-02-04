@@ -1,5 +1,5 @@
 
-FROM openjdk:22-slim-bullseye
+FROM eclipse-temurin:17-jdk-alpine
 
 # Set the working directory
 WORKDIR /app
