@@ -71,7 +71,11 @@ public class IHospitalServiceImpl implements IHospitalService {
      */
     @Override
     public List<HospitalDto> getAllHospitals() {
-        return List.of();
+
+        return hospitalRepository.findAll()
+                .stream()
+                .map(hospital -> HospitalMapper.mapToHospitalDto(hospital, new HospitalDto()))
+                .toList();
     }
 
     /**

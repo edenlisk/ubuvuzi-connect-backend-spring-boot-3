@@ -19,6 +19,8 @@ target/
 *.iml
 *.ipr
 
+request.http
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

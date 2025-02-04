@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "hospital_employee")
+@Table(name = "hospital_user_assignment")
 public class HospitalEmployee {
 
     @Id
@@ -22,8 +22,8 @@ public class HospitalEmployee {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
+    @JoinColumn(name = "user_id", nullable = false)
+    private ApplicationUser healthcareProvider;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
@@ -56,5 +56,8 @@ public class HospitalEmployee {
             inverseJoinColumns = @JoinColumn(name = "id")
     )
     private List<SubDepartment> subDepartments;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 }
 
