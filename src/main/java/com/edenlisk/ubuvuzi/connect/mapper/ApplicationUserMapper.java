@@ -11,6 +11,8 @@ public class ApplicationUserMapper {
         userDto.setAuthorities(userDto.getAuthorities());
         userDto.setUsername(user.getUsername());
         userDto.setUserRole(user.getUserRole());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
         return userDto;
     }
 

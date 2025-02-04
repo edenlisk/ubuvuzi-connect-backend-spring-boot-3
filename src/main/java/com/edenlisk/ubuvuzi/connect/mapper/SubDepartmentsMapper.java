@@ -15,7 +15,8 @@ public class SubDepartmentsMapper {
 
     public static SubDepartmentDto mapToSubDepartmentDto(SubDepartmentDto subDepartmentDto, SubDepartment subDepartment) {
         subDepartmentDto.setSubDepartmentName(subDepartment.getSubDepartmentName());
-        subDepartmentDto.setDepartmentDto(DepartmentMapper.mapToDepartmentDto(subDepartment.getDepartment(), new DepartmentDto()));
+        subDepartmentDto.setId(subDepartment.getId());
+//        subDepartmentDto.setDepartmentDto(DepartmentMapper.mapToDepartmentDto(subDepartment.getDepartment(), new DepartmentDto()));
         return subDepartmentDto;
     }
 

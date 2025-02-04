@@ -4,3 +4,50 @@ GET https://examples.http-client.intellij.net/get
 
 ###
 POST http://localhost:8080/user
+
+
+
+###
+GET http://localhost:8080/api/outcomes
+Content-Type: application/json
+
+
+
+###
+POST http://localhost:8080/api/hospitals
+Content-Type: application/json
+
+{
+  "nameOfHospital": "Butaro Hospital",
+  "address": {
+    "province": "Northern Province",
+    "district": "Musanze",
+    "sector": "Kacyiru",
+    "cell": "Musezero",
+    "village": "Amarembo"
+  }
+}
+
+###
+POST http://localhost:8080/api/departments
+Content-Type: application/json
+
+
+###
+GET http://localhost:8080/api/departments
+Content-Type: application/json
+
+
+###
+POST http://localhost:8080/api/sub-departments
+Content-Type: application/json
+
+{
+  "subDepartmentName": "Clinical pharmacology",
+  "departmentId": 5
+}
+
+
+###
+GET http://localhost:8080/api/sub-departments/1
+Content-Type: application/json

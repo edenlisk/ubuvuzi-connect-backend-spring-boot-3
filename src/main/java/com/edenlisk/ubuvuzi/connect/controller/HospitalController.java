@@ -16,10 +16,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/hospitals", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 @AllArgsConstructor
+@CrossOrigin("*")
 public class HospitalController {
 
     private IHospitalService hospitalService;
@@ -32,12 +35,20 @@ public class HospitalController {
                 .body(hospitalDto);
     }
 
+    @GetMapping
+    public ResponseEntity<List<HospitalDto>> getHospitals() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(hospitalService.getAllHospitals());
+
+    }
+
     @PostMapping("")
     public ResponseEntity<ResponseDto> createHospital(@Valid @RequestBody HospitalCreateDto hospitalCreateDto) {
         hospitalService.create(hospitalCreateDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ResponseDto(HospitalConstants.STATUS_200, HospitalConstants.STATUS_200));
+                .body(new ResponseDto(HospitalConstants.STATUS_200, "Hospital added successfully"));
     }
 
 }

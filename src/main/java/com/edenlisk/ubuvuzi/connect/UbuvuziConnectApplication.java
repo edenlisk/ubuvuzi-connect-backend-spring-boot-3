@@ -64,4 +64,55 @@ public class UbuvuziConnectApplication {
 //        };
 //    }
 
+    @Bean
+    CommandLineRunner run(
+            UserRepository userRepository,
+            PermissionRepository permissionRepository,
+            RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder
+    ) {
+        return args -> {
+            Permission permission = new Permission();
+            permission.setAuthority("hospitals:view");
+            var savedPermissions = permissionRepository.save(permission);
+
+            Permission permission2 = new Permission();
+            permission2.setAuthority("users:view");
+
+            var savedPermission2 = permissionRepository.save(permission);
+
+
+            Permission permission3 = new Permission();
+            permission3.setAuthority("departments:view");
+
+            var savedPermission3 = permissionRepository.save(permission);
+
+
+            var myPermissions = new HashSet<Permission>();
+            myPermissions.add(savedPermissions);
+            myPermissions.add(savedPermission2);
+            myPermissions.add(savedPermission3);
+
+            Role userRole = new Role();
+            userRole.setName("DOCTOR");
+            userRole.setPermissions(myPermissions);
+            var savedRole = roleRepository.save(userRole);
+
+            var roles = new HashSet<Role>();
+            roles.add(savedRole);
+            ApplicationUser user = new ApplicationUser();
+            user.setUsername("12345");
+            user.setPassword(passwordEncoder.encode("password"));
+            user.setFirstName("Murinzi");
+            user.setLastName("Edgar Alexander");
+            user.setQualification("DOCTOR");
+            user.setPhoneNumber("+250786957549");
+            user.setAuthorities(roles);
+            userRepository.save(user);
+
+        };
+    }
+
 }
+
+
