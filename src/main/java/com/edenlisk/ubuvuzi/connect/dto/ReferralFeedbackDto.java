@@ -1,6 +1,7 @@
 package com.edenlisk.ubuvuzi.connect.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Value;
 
@@ -27,10 +28,10 @@ public class ReferralFeedbackDto implements Serializable {
     @NotEmpty(message = "Please provide treatments a patient at referred facility")
     private String treatmentAtReferredFacility;
 
-    @NotEmpty(message = "Please provide the outcome")
+    @NotNull(message = "Please provide the outcome")
     private OutcomeDto outcome;
 
-    @NotEmpty(message = "Please select transfer for this feedback")
+    @NotNull(message = "Please select transfer for this feedback")
     private TransferDto transfer;
 
     private LocalDateTime createdAt;

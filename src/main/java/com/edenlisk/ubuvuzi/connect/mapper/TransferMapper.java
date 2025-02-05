@@ -99,9 +99,8 @@ public class TransferMapper {
         transferDto.setHealthCareProvider(ApplicationUserMapper.mapToApplicationUserDto(transfer.getHealthCareProvider(), new ApplicationUserDto()));
         transferDto.setContactedPerson(ApplicationUserMapper.mapToApplicationUserDto(transfer.getHealthCareProvider(), new ApplicationUserDto()));
         transferDto.setReceivingFacility(HospitalMapper.mapToHospitalDto(transfer.getReceivingFacility(), new HospitalDto()));
-        transferDto.setReferralFacility(HospitalMapper.mapToHospitalDto(transfer.getReceivingFacility(), new HospitalDto()));
+        transferDto.setReferralFacility(HospitalMapper.mapToHospitalDto(transfer.getReferralFacility(), new HospitalDto()));
         transferDto.setHealthInsurance(HealthInsuranceMapper.mapToHealthInsuranceDto(transfer.getHealthInsurance(), new HealthInsuranceDto()));
-
 
 
         return transferDto;
