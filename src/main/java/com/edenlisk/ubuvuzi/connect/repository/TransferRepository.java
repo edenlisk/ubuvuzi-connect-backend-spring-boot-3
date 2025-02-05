@@ -16,8 +16,11 @@ public interface TransferRepository extends JpaRepository<Transfer, Long> {
 //    @Query("SELECT t FROM Transfer t WHERE t.referralFacility.id = :hospitalId OR t.receivingFacility.id = :hospitalId")
 //    List<Transfer> findAllByHospitalId(@Param("hospitalId") Long hospitalId);
 
-    List<Transfer> findAllByReferralFacilityIdOrReceivingFacilityId(Long referralFacility_id, Long receivingFacility_id);
+    List<Transfer> findAllByCaregiverPhoneNumberOrderByDateDesc(String phoneNumber);
 
-    List<Transfer> findAllByHealthCareProviderUserId(Long healthCareProvider_userId);
+//    findAllByReferralFacilityIdOrReceivingFacilityId
+    List<Transfer> findAllByReferralFacility_IdOrReceivingFacility_IdOrderByDateDesc(Long referralFacility_id, Long receivingFacility_id);
+//    findAllByHealthCareProviderUserId
+    List<Transfer> findAllByHealthCareProvider_UserIdOrderByDateDesc(Long healthCareProvider_userId);
 
 }

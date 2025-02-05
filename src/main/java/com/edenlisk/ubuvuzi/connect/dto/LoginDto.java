@@ -13,8 +13,8 @@ public class LoginDto {
     @NotEmpty(message = "Username should be provided")
     private String username;
 
-    @NotEmpty(message = "User role should be specified")
-    private UserRole userRole;
+//    @NotEmpty(message = "User role should be specified")
+//    private UserRole userRole;
 
     @NotEmpty(message = "Password should be provided")
     private String password;

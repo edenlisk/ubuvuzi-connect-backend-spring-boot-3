@@ -11,7 +11,6 @@ import lombok.Data;
 public class RegistrationDto {
 
 
-
     @NotEmpty(message = "First name cannot be null or empty")
     private String firstName;
 
@@ -20,6 +19,8 @@ public class RegistrationDto {
 
     @NotEmpty(message = "Username cannot be null or empty")
     private String username;
+
+    private String qualification;
 
 //    @NotEmpty(message = "Email cannot be null or empty")
 //    @Email(message = "Email address should be a valid value")

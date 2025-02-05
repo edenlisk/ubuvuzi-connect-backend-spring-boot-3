@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/referral-feedback", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/referral-feedback", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Validated
 public class ReferralFeedbackController {
@@ -22,8 +22,8 @@ public class ReferralFeedbackController {
 
 
     @GetMapping("/{transferId}")
-    public ResponseEntity<ReferralFeedbackDto> getReferralFeedbackByTransfer(@Valid @PathVariable String transferId) {
-        ReferralFeedbackDto referralFeedbackDto = referralFeedbackService.getReferralFeedbackByTransfer(Long.getLong(transferId));
+    public ResponseEntity<ReferralFeedbackDto> getReferralFeedbackByTransfer(@Valid @PathVariable Long transferId) {
+        ReferralFeedbackDto referralFeedbackDto = referralFeedbackService.getReferralFeedbackByTransfer(transferId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(referralFeedbackDto);

@@ -1,6 +1,7 @@
 package com.edenlisk.ubuvuzi.connect.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +11,10 @@ import java.time.LocalDate;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class CreateReferralFeedbackDto {
 
-    @NotEmpty(message = "Please provide date of admission at referred facility")
+    @NotNull(message = "Please provide date of admission at referred facility")
     private LocalDate dateOfAdmissionReferredFacility;
 
-    @NotEmpty(message = "Please provide date of discharge")
+    @NotNull(message = "Please provide date of discharge")
     private LocalDate dateOfDischarge;
 
     @NotEmpty(message = "Please provide final diagnosis")
@@ -22,9 +23,9 @@ public class CreateReferralFeedbackDto {
     @NotEmpty(message = "Please provide treatments a patient at referred facility")
     private String treatmentAtReferredFacility;
 
-    @NotEmpty(message = "Please provide the outcome")
+    @NotNull(message = "Please provide the outcome")
     private Long outcomeId;
 
-    @NotEmpty(message = "Please select transfer for this feedback")
+    @NotNull(message = "Please select transfer for this feedback")
     private Long transferId;
 }

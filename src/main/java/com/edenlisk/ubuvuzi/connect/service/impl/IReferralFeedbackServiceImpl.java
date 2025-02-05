@@ -49,7 +49,7 @@ public class IReferralFeedbackServiceImpl implements IReferralFeedbackService {
      */
     @Override
     public ReferralFeedbackDto getReferralFeedbackByTransfer(Long transferId) {
-        Optional<ReferralFeedback> referralFeedback = referralFeedbackRepository.findReferralFeedbackByTransferId(transferId);
+        Optional<ReferralFeedback> referralFeedback = referralFeedbackRepository.findByTransfer_Id(transferId);
         if (referralFeedback.isEmpty()) {
             throw new ResourceNotFoundException("Transfer", "id", transferId.toString());
         }

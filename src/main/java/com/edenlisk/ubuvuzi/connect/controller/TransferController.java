@@ -50,7 +50,17 @@ public class TransferController {
 
     @GetMapping("/healthcare-provider/{healthcareProviderId}")
     public ResponseEntity<List<TransferDto>> getTransfersByHealthcareProvider(@Valid @PathVariable Long healthcareProviderId) {
+        System.out.println(healthcareProviderId);
         List<TransferDto> transferDtos = transferService.getTransfersByHealthcareProvider(healthcareProviderId);
+        System.out.println(transferDtos);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(transferDtos);
+    }
+
+    @GetMapping("/patient/{phoneNumber}")
+    public ResponseEntity<List<TransferDto>> getTransfersByPhoneNumber(@Valid @PathVariable String phoneNumber) {
+        List<TransferDto> transferDtos = transferService.getPatientTransfersByPhoneNumber(phoneNumber);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(transferDtos);

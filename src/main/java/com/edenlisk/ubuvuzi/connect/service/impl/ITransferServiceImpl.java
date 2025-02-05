@@ -2,16 +2,10 @@ package com.edenlisk.ubuvuzi.connect.service.impl;
 
 import com.edenlisk.ubuvuzi.connect.dto.CreateTransferDto;
 import com.edenlisk.ubuvuzi.connect.dto.TransferDto;
-import com.edenlisk.ubuvuzi.connect.entity.ApplicationUser;
-import com.edenlisk.ubuvuzi.connect.entity.HealthInsurance;
-import com.edenlisk.ubuvuzi.connect.entity.Hospital;
-import com.edenlisk.ubuvuzi.connect.entity.Transfer;
+import com.edenlisk.ubuvuzi.connect.entity.*;
 import com.edenlisk.ubuvuzi.connect.exception.ResourceNotFoundException;
 import com.edenlisk.ubuvuzi.connect.mapper.TransferMapper;
-import com.edenlisk.ubuvuzi.connect.repository.HealthInsuranceRepository;
-import com.edenlisk.ubuvuzi.connect.repository.HospitalRepository;
-import com.edenlisk.ubuvuzi.connect.repository.TransferRepository;
-import com.edenlisk.ubuvuzi.connect.repository.UserRepository;
+import com.edenlisk.ubuvuzi.connect.repository.*;
 import com.edenlisk.ubuvuzi.connect.service.ITransferService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +21,7 @@ public class ITransferServiceImpl implements ITransferService {
     private HospitalRepository hospitalRepository;
     private UserRepository userRepository;
     private HealthInsuranceRepository healthInsuranceRepository;
+    private DepartmentRepository departmentRepository;
 
     /**
      * @param createTransferDto
@@ -37,6 +32,8 @@ public class ITransferServiceImpl implements ITransferService {
         Hospital receivingFacility = hospitalRepository.findById(createTransferDto.getReceivingFacilityId()).orElseThrow(
                 () -> new ResourceNotFoundException("Hospital", "id", createTransferDto.getReceivingFacilityId().toString())
         );
+        Optional<Department> receivingService = departmentRepository.findById(createTransferDto.getReceivingServiceId());
+        receivingService.ifPresent(transfer::setReceivingService);
         Optional<HealthInsurance> healthInsurance = healthInsuranceRepository.findById(createTransferDto.getHealthInsuranceId());
         healthInsurance.ifPresent(transfer::setHealthInsurance);
         Hospital referralFacility = hospitalRepository.findById(createTransferDto.getReferralFacilityId()).orElseThrow(
@@ -71,7 +68,7 @@ public class ITransferServiceImpl implements ITransferService {
      */
     @Override
     public List<TransferDto> getTransfersByHospital(Long hospitalId) {
-        return transferRepository.findAllByReferralFacilityIdOrReceivingFacilityId(hospitalId, hospitalId)
+        return transferRepository.findAllByReferralFacility_IdOrReceivingFacility_IdOrderByDateDesc(hospitalId, hospitalId)
                 .stream()
                 .map(transfer -> TransferMapper.mapToTransferDto(transfer, new TransferDto()))
                 .toList();
@@ -83,7 +80,19 @@ public class ITransferServiceImpl implements ITransferService {
      */
     @Override
     public List<TransferDto> getTransfersByHealthcareProvider(Long healthcareProviderUserId) {
-        return transferRepository.findAllByHealthCareProviderUserId(healthcareProviderUserId)
+        return transferRepository.findAllByHealthCareProvider_UserIdOrderByDateDesc(healthcareProviderUserId)
+                .stream()
+                .map(transfer -> TransferMapper.mapToTransferDto(transfer, new TransferDto()))
+                .toList();
+    }
+
+    /**
+     * @param phoneNumber
+     * @return
+     */
+    @Override
+    public List<TransferDto> getPatientTransfersByPhoneNumber(String phoneNumber) {
+        return transferRepository.findAllByCaregiverPhoneNumberOrderByDateDesc(phoneNumber)
                 .stream()
                 .map(transfer -> TransferMapper.mapToTransferDto(transfer, new TransferDto()))
                 .toList();

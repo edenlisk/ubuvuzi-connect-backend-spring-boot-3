@@ -30,6 +30,18 @@ public class TransferDto implements Serializable {
 
     private LocalDate dateOfBirth;
 
+    @NotEmpty(message = "Please provide district")
+    private String district;
+
+    @NotEmpty(message = "Please provide sector")
+    private String sector;
+
+    @NotEmpty(message = "Please provide cell")
+    private String cell;
+
+    @NotEmpty(message = "Please provide village")
+    private String village;
+
     @NotEmpty(message = "Please select gender")
     private Gender gender;
 
