@@ -4,6 +4,7 @@ import com.edenlisk.ubuvuzi.connect.constants.Gender;
 import com.edenlisk.ubuvuzi.connect.constants.Transportation;
 import com.edenlisk.ubuvuzi.connect.constants.TypeOfTransfer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,8 +33,8 @@ public class Transfer extends BaseEntity {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "sex")
-    private Gender sex;
+    @Column(name = "gender")
+    private Gender gender;
 
     @Column(name = "caregiver_name")
     private String caregiverName;
@@ -42,9 +43,21 @@ public class Transfer extends BaseEntity {
     private String caregiverPhoneNumber;
 
     // TODO : WHAT IS THIS SERVICE ABOUT
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "address_id", referencedColumnName = "id")
+//    private Address address;
+
+    @NotEmpty(message = "Please provide district")
+    private String district;
+
+    @NotEmpty(message = "Please provide sector")
+    private String sector;
+
+    @NotEmpty(message = "Please provide cell")
+    private String cell;
+
+    @NotEmpty(message = "Please provide village")
+    private String village;
 
     @Column(name = "date_of_admission")
     private LocalDate dateOfAdmission;
@@ -61,6 +74,10 @@ public class Transfer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "receiving_facility_id", nullable = false)
     private Hospital receivingFacility;
+
+    @ManyToOne
+    @JoinColumn(name = "receiving_service_id", nullable = false)
+    private Department receivingService;
 
 
     // Employee at the receiving facility

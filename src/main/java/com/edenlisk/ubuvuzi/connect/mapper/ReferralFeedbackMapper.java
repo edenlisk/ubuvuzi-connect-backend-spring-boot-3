@@ -1,7 +1,9 @@
 package com.edenlisk.ubuvuzi.connect.mapper;
 
 import com.edenlisk.ubuvuzi.connect.dto.CreateReferralFeedbackDto;
+import com.edenlisk.ubuvuzi.connect.dto.OutcomeDto;
 import com.edenlisk.ubuvuzi.connect.dto.ReferralFeedbackDto;
+import com.edenlisk.ubuvuzi.connect.dto.TransferDto;
 import com.edenlisk.ubuvuzi.connect.entity.ReferralFeedback;
 
 public class ReferralFeedbackMapper {
@@ -10,10 +12,12 @@ public class ReferralFeedbackMapper {
             ReferralFeedback referralFeedback,
             ReferralFeedbackDto referralFeedbackDto
             ) {
+        referralFeedbackDto.setTransfer(TransferMapper.mapToTransferDto(referralFeedback.getTransfer(), new TransferDto()));
         referralFeedbackDto.setDateOfDischarge(referralFeedback.getDateOfDischarge());
         referralFeedbackDto.setFinalDiagnosis(referralFeedback.getFinalDiagnosis());
+        referralFeedbackDto.setOutcome(OutcomeMapper.mapToOutcomeDto(referralFeedback.getOutcome(), new OutcomeDto()));
         referralFeedbackDto.setTreatmentAtReferredFacility(referralFeedback.getTreatmentAtReferredFacility());
-        referralFeedback.setDateOfAdmissionReferredFacility(referralFeedback.getDateOfAdmissionReferredFacility());
+        referralFeedbackDto.setDateOfAdmissionReferredFacility(referralFeedback.getDateOfAdmissionReferredFacility());
         return referralFeedbackDto;
     }
 

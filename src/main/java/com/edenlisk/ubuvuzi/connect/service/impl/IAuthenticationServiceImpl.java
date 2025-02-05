@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -82,16 +83,24 @@ public class IAuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ApplicationUserDto register(RegistrationDto registrationDto) {
         String encodedPassword = passwordEncoder.encode(registrationDto.getPassword());
-//        Role userRole = roleRepository.findByName("USER").get();
-        Role userRole = new Role();
-        userRole.setName(String.valueOf(registrationDto.getUserRole()));
+        Optional<Role> role = roleRepository.findByName(String.valueOf(registrationDto.getUserRole()));
+
         Set<Role> authorities = new HashSet<>();
-        Set<Permission> permissions = new HashSet<>();
-        userRole.setPermissions(permissions);
-        var saved = roleRepository.save(userRole);
-        authorities.add(saved);
         ApplicationUser user = ApplicationUserMapper.mapToApplicationUser(registrationDto, new ApplicationUser());
         user.setPassword(encodedPassword);
+        if (role.isEmpty()) {
+            Set<Permission> permissions = new HashSet<>();
+            Role userRole = new Role();
+            userRole.setPermissions(permissions);
+            userRole.setName(String.valueOf(registrationDto.getUserRole()));
+            userRole.setPermissions(permissions);
+            var savedRole = roleRepository.save(userRole);
+            authorities.add(savedRole);
+        } else {
+            authorities.add(role.get());
+        }
+//        Role userRole = roleRepository.findByName("USER").get();
+//        var savedRole = roleRepository.findByName(String.valueOf(registrationDto.getUserRole())).get();
         user.setAuthorities(authorities);
         ApplicationUser savedUser = userRepository.save(user);
         return ApplicationUserMapper.mapToApplicationUserDto(savedUser, new ApplicationUserDto());
@@ -104,16 +113,18 @@ public class IAuthenticationServiceImpl implements AuthenticationService {
     @Override
     public LoginResponseDTO login(LoginDto loginDto) {
 
-        try{
+        try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
             );
             String token = tokenService.generateJwt(auth);
             ApplicationUser user = userRepository.findByUsername(loginDto.getUsername()).get();
-            user.setPassword(null);
-            return new LoginResponseDTO(user, token);
+//            user.setPassword(null);
+//            LoginResponseDTO dto = new LoginResponseDTO(user, token);
 
-        } catch(AuthenticationException e){
+            return new LoginResponseDTO(ApplicationUserMapper.mapToApplicationUserDto(user, new ApplicationUserDto()), token);
+
+        } catch (AuthenticationException e) {
             return new LoginResponseDTO(null, null);
         }
     }

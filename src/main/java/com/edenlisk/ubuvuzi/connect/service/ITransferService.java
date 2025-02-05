@@ -17,4 +17,6 @@ public interface ITransferService {
 
     List<TransferDto> getTransfersByHealthcareProvider(Long id);
 
+    List<TransferDto> getPatientTransfersByPhoneNumber(String phoneNumber);
+
 }

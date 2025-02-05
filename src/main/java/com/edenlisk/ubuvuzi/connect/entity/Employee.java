@@ -20,6 +20,8 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Long userId;
+
     @Column(nullable = false)
     private String firstName;
 

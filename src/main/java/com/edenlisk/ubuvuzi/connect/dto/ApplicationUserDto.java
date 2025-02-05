@@ -11,9 +11,13 @@ import java.util.Set;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ApplicationUserDto {
 
+    private Long id;
+
     private String firstName;
 
     private String lastName;
+
+    private String qualification;
 
     @NotEmpty(message = "Username cannot be null or empty")
     private String username;

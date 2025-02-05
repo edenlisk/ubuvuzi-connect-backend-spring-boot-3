@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ReferralFeedbackRepository extends JpaRepository<ReferralFeedback, Long> {
 
-    Optional<ReferralFeedback> findReferralFeedbackByTransferId(Long transferId);
+    Optional<ReferralFeedback> findByTransfer_Id(Long transferId);
 
 }
